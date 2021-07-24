@@ -63,17 +63,16 @@ public class Knapsack {
 
         // for print the Profits array elements
         System.out.println("Profits are: ");
-        float profitArr[] = { 10, 5, 15, 7, 6, 18, 3 };
+        float profitArr[] = { 40, 30, 20 };
         k1.printProfitArray(profitArr);
         System.out.println();
         // for print the weight array elements
         System.out.println("Weights are: ");
-        float weightArr[] = { 2, 3, 5, 7, 1, 4, 1 };
+        float weightArr[] = { 20, 10, 5 };
         k1.printWeightArray(weightArr);
         // for find the p/w value
         System.out.println();
-        float newArr[][] = { { 10, 2, 0 }, { 5, 3, 0 }, { 15, 5, 0 }, { 7, 7, 0 }, { 6, 1, 0 }, { 18, 4, 0 },
-                { 3, 1, 0 } };
+        float newArr[][] = { { 40, 20, 0 }, { 30, 10, 0 }, { 20, 5, 0 } };
         System.out.println("Ratio are");
         k1.ratio(profitArr, weightArr, newArr);
         int col = 3;
@@ -88,13 +87,33 @@ public class Knapsack {
         }
         float columnSum = 0;
         float totalProfit = 0;
+        int j = 0;
         for (int i = 0; i < newArr.length; i++) {
-            columnSum += newArr[i][1];
-            if (columnSum <= 16) {
-                totalProfit += (newArr[i][1] * newArr[i][2]);
+            j++;
+            if (columnSum <= 20) {
+                columnSum += newArr[i][1];
+                if (columnSum <= 20) {
+                    totalProfit += (newArr[i][0]);
+                }
+            } else {
+                float newColumnSum = columnSum - newArr[i - 1][1];
+                float newColumnSum1 = 20 - newColumnSum;
+                totalProfit += ((newColumnSum1 / newArr[i][1]) * newArr[i][0]);
+                j = 0;
             }
         }
-
+        if (j == newArr.length) {
+            if (columnSum <= 20) {
+                columnSum += newArr[j - 1][1];
+                if (columnSum <= 20) {
+                    totalProfit += (newArr[j - 1][0]);
+                }
+            } else {
+                float newColumnSum = columnSum - newArr[(j - 1)][1];
+                float newColumnSum1 = 20 - newColumnSum;
+                totalProfit += ((newColumnSum1 / newArr[j - 1][1]) * newArr[j - 1][0]);
+            }
+        }
         System.out.println();
         System.out.println("Total profit is: " + totalProfit);
     }
