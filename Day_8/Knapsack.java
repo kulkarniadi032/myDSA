@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class Knapsack {
     float max = 0;
@@ -59,6 +60,7 @@ public class Knapsack {
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         Knapsack k1 = new Knapsack();
 
         // for print the Profits array elements
@@ -72,6 +74,9 @@ public class Knapsack {
         k1.printWeightArray(weightArr);
         // for find the p/w value
         System.out.println();
+        System.out.println("enter capacity of knapsack: ");
+        float capacity = sc.nextFloat();
+
         float newArr[][] = { { 40, 20, 0 }, { 30, 10, 0 }, { 20, 5, 0 } };
         System.out.println("Ratio are");
         k1.ratio(profitArr, weightArr, newArr);
@@ -90,27 +95,27 @@ public class Knapsack {
         int j = 0;
         for (int i = 0; i < newArr.length; i++) {
             j++;
-            if (columnSum <= 20) {
+            if (columnSum <= capacity) {
                 columnSum += newArr[i][1];
-                if (columnSum <= 20) {
+                if (columnSum <= capacity) {
                     totalProfit += (newArr[i][0]);
                 }
             } else {
                 float newColumnSum = columnSum - newArr[i - 1][1];
-                float newColumnSum1 = 20 - newColumnSum;
+                float newColumnSum1 = capacity - newColumnSum;
                 totalProfit += ((newColumnSum1 / newArr[i][1]) * newArr[i][0]);
                 j = 0;
             }
         }
         if (j == newArr.length) {
-            if (columnSum <= 20) {
+            if (columnSum <= capacity) {
                 columnSum += newArr[j - 1][1];
-                if (columnSum <= 20) {
+                if (columnSum <= capacity) {
                     totalProfit += (newArr[j - 1][0]);
                 }
             } else {
                 float newColumnSum = columnSum - newArr[(j - 1)][1];
-                float newColumnSum1 = 20 - newColumnSum;
+                float newColumnSum1 = capacity - newColumnSum;
                 totalProfit += ((newColumnSum1 / newArr[j - 1][1]) * newArr[j - 1][0]);
             }
         }
@@ -118,3 +123,14 @@ public class Knapsack {
         System.out.println("Total profit is: " + totalProfit);
     }
 }
+// test case1 :
+// profit : 40,30,20
+// weight : 20,10,5
+
+// test case2:
+// profit : 10,5,15,7,6,18,3
+// weight : 2,3,5,7,1,4,1
+
+// test case3 :
+// profit : 60,100,120
+// weight : 10,20,30
