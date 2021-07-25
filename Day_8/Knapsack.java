@@ -65,20 +65,19 @@ public class Knapsack {
 
         // for print the Profits array elements
         System.out.println("Profits are: ");
-        float profitArr[] = { 10, 5, 15, 7, 6, 18, 3 };
+        float profitArr[] = { 60, 50, 20 };
         k1.printProfitArray(profitArr);
         System.out.println();
         // for print the weight array elements
         System.out.println("Weights are: ");
-        float weightArr[] = { 2, 3, 5, 7, 1, 4, 1 };
+        float weightArr[] = { 20, 25, 5 };
         k1.printWeightArray(weightArr);
         // for find the p/w value
         System.out.println();
         System.out.println("enter capacity of knapsack: ");
         float capacity = sc.nextFloat();
 
-        float newArr[][] = { { 10, 2, 0 }, { 5, 3, 0 }, { 15, 5, 0 }, { 7, 7, 0 }, { 6, 1, 0 }, { 18, 4, 0 },
-                { 3, 1, 0 } };
+        float newArr[][] = { { 60, 20, 0 }, { 50, 25, 0 }, { 20, 5, 0 } };
         System.out.println("Ratio are");
         k1.ratio(profitArr, weightArr, newArr);
         int col = 3;
@@ -104,7 +103,7 @@ public class Knapsack {
             } else {
                 float newColumnSum = columnSum - newArr[i - 1][1];
                 float newColumnSum1 = capacity - newColumnSum;
-                totalProfit += ((newColumnSum1 / newArr[i][1]) * newArr[i][0]);
+                totalProfit += ((newColumnSum1 / newArr[i - 1][1]) * newArr[i - 1][0]);
                 j = 0;
             }
         }
@@ -134,7 +133,7 @@ public class Knapsack {
 // profit : 10,5,15,7,6,18,3
 // weight : 2,3,5,7,1,4,1
 // capacity : 15
-// ans : 54
+// ans : 55.333332
 
 // test case3 :
 // profit : 60,100,120
@@ -147,3 +146,9 @@ public class Knapsack {
 // weight : 20,25,5
 // capacity : 40
 // ans : 110
+
+// test case5 :
+// profit : 30,40,45,77,90
+// weight : 5,10,15,22,25
+// capacity : 60
+// ans : 230
